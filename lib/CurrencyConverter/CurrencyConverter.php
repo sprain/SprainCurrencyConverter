@@ -249,7 +249,7 @@ class CurrencyConverter
     }
 
     /**
-     * Get providers
+     * Get providers ordered by priority
      *
      * @return array
      */
