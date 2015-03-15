@@ -1,0 +1,27 @@
+{
+  "name": "sprain/currency-converter",
+  "type": "library",
+  "description": "A php library to handle currency conversion",
+  "keywords": ["currency", "conversion", "money"],
+  "homepage": "https://github.com/sprain/CurrencyConverter",
+  "license": "MIT",
+  "authors": [
+    {"name": "Manuel Reinhard", "email": "manu@sprain.ch"}
+  ],
+  "require": {
+    "php": ">=5.4.3",
+    "symfony/intl": "~2.6",
+    "symfony/validator": "~2.6"
+  },
+  "require-dev": {
+    "doctrine/cache": "~1.4",
+    "kriswallsmith/buzz": "~0.13"
+  },
+  "suggest": {
+    "doctrine/cache": "To use caching in multiple providers",
+    "kriswallsmith/buzz": "To use FixerIoProvider"
+  },
+  "autoload": {
+    "psr-4": { "Sprain\\CurrencyConverter\\": "lib/CurrencyConverter" }
+  }
+}

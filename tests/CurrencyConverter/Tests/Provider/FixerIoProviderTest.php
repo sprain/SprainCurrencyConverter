@@ -1,0 +1,210 @@
+<?php
+
+use Sprain\CurrencyConverter\Tests\Provider;
+use Sprain\CurrencyConverter\Provider\FixerIoProvider;
+
+class FixerIoProviderTest extends PHPUnit_Framework_TestCase
+{
+    public function getProvider(array $browserCalls = null)
+    {
+        return new FixerIoProvider($this->getBrowserMock($browserCalls));
+    }
+
+    public function testGetSupportedCurrencies()
+    {
+        $this->assertEquals(array(), $this->getProvider()->getSupportedCurrencies());
+    }
+
+    public function testGetExchangeRate()
+    {
+        $browserCalls = array(
+            'get' => array(
+                'calls' => $this->once(),
+                'with'  => 'http://api.fixer.io/latest?base=USD&symbols=EUR'
+            ),
+            'response' => array(
+                'getStatusCode' => array(
+                    'calls' => $this->once(),
+                ),
+                'getContent' => array(
+                    'calls' => $this->once(),
+                )
+            )
+        );
+
+        $provider = $this->getProvider($browserCalls);
+        $provider->setBaseCurrency('USD');
+        $provider->setTargetCurrency('EUR');
+
+        $this->assertEquals('0.9459', $provider->getExchangeRate());
+    }
+
+    /**
+     * @expectedException Sprain\CurrencyConverter\Provider\Exception\ProviderUnavailableException
+     */
+    public function testHttpErrorResponse()
+    {
+        $browserCalls = array(
+            'get' => array(
+                'calls' => $this->once(),
+                'with'  => 'http://api.fixer.io/latest?base=USD&symbols=EUR'
+            ),
+            'response' => array(
+                'getStatusCode' => array(
+                    'calls' => $this->once(),
+                    'returnValue' => 500
+                )
+            )
+        );
+
+        $provider = $this->getProvider($browserCalls);
+        $provider->setBaseCurrency('USD');
+        $provider->setTargetCurrency('EUR');
+
+        $provider->getExchangeRate();
+    }
+
+    /**
+     * @expectedException Sprain\CurrencyConverter\Provider\Exception\UnsupportedConversionException
+     * @dataProvider badApiContentProvider
+     */
+    public function testBadApiContent($content)
+    {
+        $browserCalls = array(
+            'get' => array(
+                'calls' => $this->once(),
+                'with'  => 'http://api.fixer.io/latest?base=USD&symbols=EUR'
+            ),
+            'response' => array(
+                'getStatusCode' => array(
+                    'calls' => $this->once(),
+                ),
+                'getContent' => array(
+                    'calls' => $this->once(),
+                    'returnValue'  => $content
+                )
+            )
+        );
+
+        $provider = $this->getProvider($browserCalls);
+        $provider->setBaseCurrency('USD');
+        $provider->setTargetCurrency('EUR');
+
+        $provider->getExchangeRate();
+    }
+
+    public function badApiContentProvider()
+    {
+        return array(
+            array(''),
+            array('foobar'),
+            array('{"some":"random","json":"content"}')
+        );
+    }
+
+    /**
+     * Make sure an exception is thrown if the api returns no valid result
+     *
+     * @expectedException Sprain\CurrencyConverter\Provider\Exception\UnsupportedConversionException
+     * @dataProvider unsupportedCurrencyProvider
+     */
+    public function testUnsupportedCurrencies($baseCurrency, $targetCurrency)
+    {
+        $browserCalls = array(
+            'get' => array(
+                'calls' => $this->once(),
+                'with'  => sprintf('http://api.fixer.io/latest?base=%s&symbols=%s', $baseCurrency, $targetCurrency)
+            ),
+            'response' => array(
+                'getStatusCode' => array(
+                    'calls' => $this->once(),
+                ),
+                'getContent' => array(
+                    'calls' => $this->once(),
+                )
+            )
+        );
+
+        $provider = $this->getProvider($browserCalls);
+        $provider->setBaseCurrency($baseCurrency);
+        $provider->setTargetCurrency($targetCurrency);
+
+        $provider->getExchangeRate();
+    }
+
+    public function unsupportedCurrencyProvider()
+    {
+        return array(
+            array('FOO', 'USD'),
+            array('USD', 'BAR')
+        );
+    }
+
+    public function getBrowserMock(array $browserCalls = null)
+    {
+        $browser = $this->getMockBuilder('Buzz\Browser')
+            ->disableOriginalConstructor()
+            ->setMethods(array('get'))
+            ->getMock();
+
+        $calls = $this->never();
+
+        if (isset($browserCalls['get']['calls'])) {
+            $calls = $browserCalls['get']['calls'];
+        }
+
+        $with = null;
+        if (isset($browserCalls['get']['with'])) {
+            $with = $browserCalls['get']['with'];
+        }
+
+        $browser->expects($calls)
+            ->method('get')
+            ->with($with)
+            ->will($this->returnValue($this->getResponseMock($browserCalls)));
+
+        return $browser;
+    }
+
+    public function getResponseMock($browserCalls)
+    {
+        $response = $this->getMockBuilder('Buzz\Message\Response')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getStatusCode', 'getContent'))
+            ->getMock();
+
+
+        $calls = $this->never();
+        $returnValue = 200;
+
+        if (isset($browserCalls['response']['getStatusCode']['calls'])) {
+            $calls = $browserCalls['response']['getStatusCode']['calls'];
+        }
+
+        if (isset($browserCalls['response']['getStatusCode']['returnValue'])) {
+            $returnValue = $browserCalls['response']['getStatusCode']['returnValue'];
+        }
+
+        $response->expects($calls)
+            ->method('getStatusCode')
+            ->will($this->returnValue($returnValue));
+
+
+        $calls =  $this->never();
+        $returnValue = '{"base":"USD","date":"2015-03-13","rates":{"EUR":0.9459}}';
+
+        if (isset($browserCalls['response']['getContent']['calls'])) {
+            $calls = $browserCalls['response']['getContent']['calls'];
+        }
+
+        if (isset($browserCalls['response']['getContent']['returnValue'])) {
+            $returnValue = $browserCalls['response']['getContent']['returnValue'];
+        }
+
+        $response->expects($calls)
+            ->method('getContent')
+            ->will($this->returnValue($returnValue));
+
+        return $response;
+    }
+}
