@@ -4,6 +4,7 @@
 custom providers.
 
 [![Build Status](https://travis-ci.org/sprain/CurrencyConverter.png)](https://travis-ci.org/sprain/CurrencyConverter)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sprain/CurrencyConverter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sprain/CurrencyConverter/?branch=master)
 
 ## Installation
 
