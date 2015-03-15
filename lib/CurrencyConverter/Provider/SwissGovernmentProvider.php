@@ -122,7 +122,7 @@ class SwissGovernmentProvider extends AbstractProvider
 
         if (200 !== $response->getStatusCode()) {
 
-            throw new ProviderUnavailableException();
+            throw new ProviderUnavailableException($this->getName());
         }
 
         return  $response->getContent();

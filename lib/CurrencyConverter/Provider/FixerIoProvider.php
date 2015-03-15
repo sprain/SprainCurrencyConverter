@@ -54,7 +54,7 @@ class FixerIoProvider extends AbstractCacheableProvider
 
         if (200 !== $response->getStatusCode()) {
 
-            throw new ProviderUnavailableException();
+            throw new ProviderUnavailableException($this->getName());
         }
 
         $content = json_decode($response->getContent(), true);
