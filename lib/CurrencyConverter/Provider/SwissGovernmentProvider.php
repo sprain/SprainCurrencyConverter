@@ -37,10 +37,10 @@ class SwissGovernmentProvider extends AbstractProvider
      * @param Browser $browser
      * @param Cache   $cache
      */
-    public function __construct(Browser $browser = null, Cache $cache = null)
+    public function __construct(Browser $browser, Cache $cache = null)
     {
-        $this->cache   = $cache;
         $this->browser = $browser;
+        $this->cache   = $cache;
     }
 
     /**

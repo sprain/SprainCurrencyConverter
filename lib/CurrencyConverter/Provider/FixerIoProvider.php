@@ -31,7 +31,7 @@ class FixerIoProvider extends AbstractCacheableProvider
     /**
      * @param Browser $browser
      */
-    public function __construct(Browser $browser = null)
+    public function __construct(Browser $browser)
     {
         $this->browser   = $browser;
     }

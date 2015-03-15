@@ -277,7 +277,7 @@ class CurrencyConverter
      *
      * @param Cache $cache
      */
-    public function setCache(Cache $cache)
+    public function setCache(Cache $cache = null)
     {
         $this->cache = $cache;
     }
