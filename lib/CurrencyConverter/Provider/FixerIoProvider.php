@@ -22,7 +22,7 @@ class FixerIoProvider extends AbstractCacheableProvider
     protected $baseUrl = 'http://api.fixer.io/latest';
 
     /**
-     * Browser to load data from the url
+     * Browser to load data from the api
      *
      * @var Browser
      */

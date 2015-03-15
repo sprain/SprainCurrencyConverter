@@ -26,6 +26,13 @@ class SwissGovernmentProvider extends AbstractProvider
     protected $baseUrl = 'http://www.afd.admin.ch/publicdb/newdb/mwst_kurse/wechselkurse.php';
 
     /**
+     * Browser to load data from the api
+     *
+     * @var Browser
+     */
+    protected $browser;
+
+    /**
      * Cache to save responses from the api
      *
      * @var Cache
