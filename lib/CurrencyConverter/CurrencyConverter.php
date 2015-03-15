@@ -44,9 +44,14 @@ class CurrencyConverter
     protected $providers = array();
 
     /**
-     * @var Cache
+     * @var \Doctrine\Common\Cache\Cache
      */
     protected $cache;
+
+    /**
+     * @var \Symfony\Component\Validator\ValidatorInterface
+     */
+    protected $validator;
 
     /**
      * The provider which did the conversion

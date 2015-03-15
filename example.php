@@ -19,4 +19,4 @@ $convertedAmount = $converter->convert(100)->from('USD')->to('EUR')->quick();
 $conversion = $converter->convert(100)->from('CHF')->to('USD')->getConversion();
 $convertedAmount    = $conversion->getAmountInTargetCurrency();
 $exchangeRate       = $conversion->getExchangeRate();
-$successfulProvider = $conversion->getSuccessfulProvider();
+$successfulProvider = $conversion->getProvider();
