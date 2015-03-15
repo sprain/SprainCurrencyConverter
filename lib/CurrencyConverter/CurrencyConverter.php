@@ -98,7 +98,7 @@ class CurrencyConverter
     /**
      * Set the base currency
      *
-     * @param  string $baseCurrency
+     * @param  string $baseCurrency ISO 4127 currency code
      * @return $this
      * @throws InvalidCurrencyException
      */
@@ -122,7 +122,7 @@ class CurrencyConverter
      *
      * Example $converter->convert(100)->from('CHF')->to('USD')->quick()
      *
-     * @param  $from
+     * @param  string $from ISO 4127 currency code
      * @return CurrencyConverter
      */
     public function from($from)
@@ -133,7 +133,7 @@ class CurrencyConverter
     /**
      * Set the target currency
      *
-     * @param  string $targetCurrency
+     * @param  string $targetCurrency ISO 4127 currency code
      * @return $this
      * @throws InvalidCurrencyException
      */
@@ -157,7 +157,7 @@ class CurrencyConverter
      *
      * Example $converter->convert(100)->from('CHF')->to('USD')->quick()
      *
-     * @param  $to
+     * @param  string $to ISO 4127 currency code
      * @return CurrencyConverter
      */
     public function to($to)
@@ -237,7 +237,6 @@ class CurrencyConverter
      */
     public function addProvider(ProviderInterface $provider, $priority = 0)
     {
-        // Add cache, if possible
         if (null !== $this->cache && $provider instanceof AbstractCacheableProvider) {
             $provider->setCache($this->cache);
         }
