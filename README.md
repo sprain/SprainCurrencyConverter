@@ -123,7 +123,7 @@ To achieve this, simply extend `AbstractCacheableProvider` instead of `AbstractP
 
 namespace Acme\Your\Project;
 
-use Sprain\CurrencyConverter\Provider\Abstracts\AbstractProvider;
+use Sprain\CurrencyConverter\Provider\Abstracts\AbstractCacheableProvider;
 
 class MyCacheableCustomProvider extends AbstractCacheableProvider
 {
