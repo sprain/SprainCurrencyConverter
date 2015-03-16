@@ -57,7 +57,9 @@ $exchangeRate       = $conversion->getExchangeRate();
 $successfulProvider = $conversion->getProvider();
 ```
 
-## Included providers
+## Providers
+
+### Included providers
 
 * **FixerIoProvider**<br>Exchange rates provided by [fixer.io](http://fixer.io/), which gets its data from the European Central Bank.<br>*Supported currencies:* No restrictions defined
 
@@ -65,7 +67,7 @@ $successfulProvider = $conversion->getProvider();
 
 
 
-### Create your own custom providers
+### Create your own custom provider
 
 SprainCurrencyConverter easily allows you to add your own custom provider. This is helpful if for instance you keep exchange rates locally in a database.
 
