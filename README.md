@@ -3,7 +3,7 @@
 **SprainCurrencyConverter** is a php library to convert currencies. It allows great flexibility by use of built-in or
 custom providers.
 
-[![Build Status](https://travis-ci.org/sprain/CurrencyConverter.png)](https://travis-ci.org/sprain/CurrencyConverter)
+[![Build Status](https://travis-ci.org/sprain/SprainCurrencyConverter.png)](https://travis-ci.org/sprain/SprainCurrencyConverter)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sprain/CurrencyConverter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sprain/CurrencyConverter/?branch=master)
 
 ## Installation
