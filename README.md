@@ -45,7 +45,7 @@ $converter->addProvider(new \Sprain\CurrencyConverter\Provider\FixerIoProvider($
 // Optional: Add more providers. The converter will then loop over the providers until
 // a result is found. Use the second parameter to define the provider's priority.
 // Higher values mean higher priority. The highest priority provider will be checked before all others.
-$converter->addProvider(new \Sprain\CurrencyConverter\Provider\SwissGovernmentProvider($browser, 255));
+$converter->addProvider(new \Sprain\CurrencyConverter\Provider\SwissGovernmentProvider($browser), 255);
 
 // Do a quick conversion
 $convertedAmount = $converter->convert(100)->from('USD')->to('EUR')->quick();

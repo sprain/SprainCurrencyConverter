@@ -18,8 +18,8 @@
     "kriswallsmith/buzz": "~0.13"
   },
   "suggest": {
-    "doctrine/cache": "To use caching in multiple providers",
-    "kriswallsmith/buzz": "To use FixerIoProvider"
+    "doctrine/cache": "To use caching in some providers",
+    "kriswallsmith/buzz": "To use FixerIoProvider or SwissGovernmentProvider"
   },
   "autoload": {
     "psr-4": { "Sprain\\CurrencyConverter\\": "lib/CurrencyConverter" }
