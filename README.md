@@ -65,6 +65,8 @@ $successfulProvider = $conversion->getProvider();
 
 * **SwissGovernmentProvider**<br>Exchange rates provided by the Swiss government. See [www.estv.admin.ch](http://www.estv.admin.ch/mwst/dienstleistungen/00304/index.html).<br>*Supported currencies:* CHF
 
+* **YahooProvider**<br>Exchange rates provided by [finance.yahoo.com](http://finance.yahoo.com/).<br>*Supported currencies:* No restrictions defined
+
 
 
 ### Create your own custom provider

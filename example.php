@@ -10,7 +10,7 @@ $converter->setCache($cache);
 
 // Add at least one provider with its dependencies
 $browser = new Buzz\Browser();
-$converter->addProvider(new \Sprain\CurrencyConverter\Provider\FixerIoProvider($browser));
+$converter->addProvider(new \Sprain\CurrencyConverter\Provider\YahooProvider($browser));
 
 // Do a quick conversion
 $convertedAmount = $converter->convert(100)->from('USD')->to('EUR')->quick();
